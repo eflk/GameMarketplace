@@ -62,6 +62,6 @@ public class Helper {
 	}
 
 	public static boolean PrintStactTraceAllowed() {
-		return true;
+		return false;
 	}
 }

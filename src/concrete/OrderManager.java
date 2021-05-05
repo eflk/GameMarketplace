@@ -7,7 +7,6 @@ import abstracts.IOrderDal;
 import abstracts.IOrderManager;
 import abstracts.IProductManager;
 import abstracts.IWalletManager;
-import entities.Wallet;
 import entities.Order;
 import entities.Product;
 
@@ -17,12 +16,6 @@ public class OrderManager implements IOrderManager {
 	ICustomerManager _customerManager;
 	IWalletManager _walletManager;
 
-	/**
-	 * @param orderDal
-	 * @param productManager
-	 * @param customerManager
-	 * @param walletManager
-	 */
 	public OrderManager(IOrderDal orderDal, IProductManager productManager, ICustomerManager customerManager,
 			IWalletManager walletManager) {
 		_orderDal = orderDal;

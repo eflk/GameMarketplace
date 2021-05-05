@@ -16,7 +16,12 @@ public class ProductManager implements IProductManager {
 
 	@Override
 	public void add(Product entity) {
-		_productDal.add(entity);
+		try {
+			_productDal.add(entity);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
+		}
 
 	}
 
@@ -25,7 +30,8 @@ public class ProductManager implements IProductManager {
 		try {
 			_productDal.update(entity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
 		}
 
 	}
@@ -35,7 +41,8 @@ public class ProductManager implements IProductManager {
 		try {
 			_productDal.delete(entity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
 		}
 
 	}

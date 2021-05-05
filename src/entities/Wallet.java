@@ -5,7 +5,7 @@ import abstracts.IEntity;
 public class Wallet implements IEntity<Wallet> {
 	public int id;
 	public int customerId;
-	public double credit;
+	public double balance;
 
 	/**
 	 * @param id
@@ -15,7 +15,7 @@ public class Wallet implements IEntity<Wallet> {
 	public Wallet(int id, int customerId, double credit) {
 		this.id = id;
 		this.customerId = customerId;
-		this.credit = credit;
+		this.balance = credit;
 	}
 
 	public int getId() {
@@ -26,7 +26,7 @@ public class Wallet implements IEntity<Wallet> {
 	public void Clone(Wallet wallet) {
 		this.id = wallet.id;
 		this.customerId = wallet.customerId;
-		this.credit = wallet.credit;
+		this.balance = wallet.balance;
 
 	}
 }

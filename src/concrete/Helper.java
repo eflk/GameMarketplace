@@ -16,18 +16,22 @@ public class Helper {
 	public static <T extends IEntity<?>> void dumpEntities(List<T> entities) {
 		for (T entity : entities) {
 			System.out.println(".");
-
-			for (Field field2 : entity.getClass().getDeclaredFields()) {
-				Object val = null;
-				try {
-					val = field2.get(entity);
-				} catch (IllegalArgumentException e) {
+			dumpEntity(entity);
+		}
+	}
+	public static <T extends IEntity<?>> void dumpEntity(T entity) {
+		for (Field field2 : entity.getClass().getDeclaredFields()) {
+			Object val = null;
+			try {
+				val = field2.get(entity);
+			} catch (IllegalArgumentException e) {
+				if (Helper.PrintStactTraceAllowed())
 					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+			} catch (IllegalAccessException e) {
+				if (Helper.PrintStactTraceAllowed())
 					e.printStackTrace();
-				}
-				System.out.printf("%-20s : %-100s\n", field2.getName().toUpperCase(), val);
 			}
+			System.out.printf("%-20s : %-100s\n", field2.getName().toUpperCase(), val);
 		}
 	}
 
@@ -35,7 +39,8 @@ public class Helper {
 		try {
 			return _dateFormat.parse(date);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 		return null;
 	}
@@ -54,5 +59,9 @@ public class Helper {
 
 	public static Date getDateSystemDateUTC() {
 		return Date.from(ZonedDateTime.now(ZoneOffset.UTC).toInstant());
+	}
+
+	public static boolean PrintStactTraceAllowed() {
+		return true;
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public interface IEntityRepository<T extends IEntity<T>> {
-	public void add(T entity);
+	public void add(T entity) throws Exception;
 
 	public void update(T entity) throws Exception;
 

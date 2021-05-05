@@ -15,14 +15,16 @@ public class EntityReposiyoryBase<T extends IEntity<T>> implements IEntityReposi
 	}
 
 	@Override
-	public void add(T entity) {
+	public void add(T entity) throws Exception {
+		if (this.getById(entity.getId()) != null)
+			throw new Exception("The id \"" + entity.getId() + "\" already exists.");
 		_context.add(entity);
 	}
 
 	@Override
 	public void update(T entity) throws Exception {
 		if (entity != null) {
-			T entityToUpdate = this.getAll().stream().filter(p -> p.getId() == entity.getId()).findFirst().get();
+			T entityToUpdate = this.getById(entity.getId());
 			if (entityToUpdate == null)
 				throw new Exception("Not found");
 			entityToUpdate.Clone(entity);
@@ -35,9 +37,6 @@ public class EntityReposiyoryBase<T extends IEntity<T>> implements IEntityReposi
 	@Override
 	public void delete(T entity) throws Exception {
 		if (entity != null) {
-			// T entityToDelete = this.getAll().stream().filter(p -> p.getId() ==
-			// entity.getId()).findFirst().get();
-
 			if (!_context.removeIf(p -> p.getId() == entity.getId()))
 				throw new Exception("Not found");
 		} else {

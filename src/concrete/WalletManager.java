@@ -13,14 +13,22 @@ public class WalletManager implements IWalletManager {
 	}
 
 	public void add(Wallet wallet) {
-		_walletDal.add(wallet);
+		try {
+			_walletDal.add(wallet);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
+		}
 	}
 
 	public void update(Wallet wallet) {
 		try {
 			_walletDal.update(wallet);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 	}
 
@@ -28,7 +36,9 @@ public class WalletManager implements IWalletManager {
 		try {
 			_walletDal.delete(wallet);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 	}
 
@@ -40,17 +50,19 @@ public class WalletManager implements IWalletManager {
 		return _walletDal.getById(id);
 	}
 
-	public void addCredit(int customerId, double credit) {
+	public Wallet getByCustomerId(int id) {
+		return _walletDal.getByCustomerId(id);
+	}
+
+	public void updateCredit(int customerId, double credit) throws Exception {
 		Wallet wallet = _walletDal.getByCustomerId(customerId);
 		if (wallet == null)
 			_walletDal.add(new Wallet(0, customerId, credit));
 		else {
-			wallet.credit += credit;
-			try {
-				_walletDal.update(wallet);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			if ((wallet.balance + credit) < 0)
+				throw new Exception("Insufficient credit");
+			wallet.balance += credit;
+			_walletDal.update(wallet);
 		}
 	}
 

@@ -2,10 +2,8 @@ package concrete;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
 import abstracts.IEntity;
 import abstracts.IEntityRepository;
 
@@ -59,15 +57,19 @@ public class EntityReposiyoryBase<T extends IEntity<T>> implements IEntityReposi
 	}
 
 	public T get(Predicate<? super T> filter) {
-		for (Iterator iterator = _context.iterator(); iterator.hasNext();) {
+		for (Iterator<T> iterator = _context.iterator(); iterator.hasNext();) {
 			T t = (T) iterator.next();
 			if (filter.test(t)) {
 				return t;
 			}
-			
+
 		}
 
-return null;
+		return null;
+	}
+
+	public List<T> getFiltered(Predicate<? super T> filter) {
+		return this.getAll().stream().filter(filter).collect(Collectors.<T>toList());
 	}
 
 }

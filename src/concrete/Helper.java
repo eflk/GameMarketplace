@@ -15,7 +15,7 @@ public class Helper {
 
 	public static <T extends IEntity<?>> void dumpEntities(List<T> entities) {
 		for (T entity : entities) {
-			System.out.println("__");
+			System.out.println(".");
 
 			for (Field field2 : entity.getClass().getDeclaredFields()) {
 				Object val = null;
@@ -26,7 +26,7 @@ public class Helper {
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				System.out.println(field2.getName() + ":" + val);
+				System.out.printf("%-20s : %-100s\n", field2.getName().toUpperCase(), val);
 			}
 		}
 	}

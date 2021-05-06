@@ -1,7 +1,6 @@
 package concrete;
 
 import java.util.List;
-
 import abstracts.ICustomerManager;
 import abstracts.IOrderDal;
 import abstracts.IOrderManager;
@@ -32,7 +31,8 @@ public class OrderManager implements IOrderManager {
 			_orderDal.add(entity);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 	}
 
@@ -43,7 +43,8 @@ public class OrderManager implements IOrderManager {
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 
 	}
@@ -54,7 +55,8 @@ public class OrderManager implements IOrderManager {
 			_orderDal.delete(entity);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			if(Helper.PrintStactTraceAllowed()) e.printStackTrace();
+			if (Helper.PrintStactTraceAllowed())
+				e.printStackTrace();
 		}
 
 	}
@@ -68,7 +70,7 @@ public class OrderManager implements IOrderManager {
 
 		_walletManager.updateCredit(order.customerId, -order.totalPrice);
 		order.orderStatus = 2; // ordered
-		if(_orderDal.getById(order.id) != null)
+		if (_orderDal.getById(order.id) != null)
 			this.update(order);
 		else
 			this.add(order);
